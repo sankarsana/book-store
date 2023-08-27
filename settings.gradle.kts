@@ -4,6 +4,7 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    includeBuild("gradle/plugins")
 }
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -15,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "BookStore"
 include(":app")
+include(":feature:store")
