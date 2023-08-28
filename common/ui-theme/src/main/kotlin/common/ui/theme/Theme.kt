@@ -1,4 +1,4 @@
-package nrs.sankarsana.book.store.ui.theme
+package common.ui.theme
 
 import android.app.Activity
 import android.os.Build

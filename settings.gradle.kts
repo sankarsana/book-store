@@ -16,4 +16,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "BookStore"
 include(":app")
+include(":common:ui-theme")
+include(":feature:main-screen")
 include(":feature:store")

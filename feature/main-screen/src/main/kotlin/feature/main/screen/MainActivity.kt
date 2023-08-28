@@ -1,4 +1,4 @@
-package nrs.sankarsana.book.store
+package feature.main.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,11 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import feature.store.Store
-import nrs.sankarsana.book.store.ui.theme.BookStoreTheme
+import common.ui.theme.BookStoreTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -22,17 +20,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Store()
+                    Text(
+                        text = "feature.main.screen.MainActivity!",
+                        modifier = Modifier
+                    )
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    BookStoreTheme {
-        Store()
     }
 }

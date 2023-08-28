@@ -1,4 +1,4 @@
-package nrs.sankarsana.book.store.ui.theme
+package common.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
