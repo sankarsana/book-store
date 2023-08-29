@@ -17,18 +17,21 @@ gradlePlugin {
 
     plugins {
 
+        register("KotlinLibraryPlugin") {
+            id = "kotlin-library-plugin"
+            implementationClass = "plugin.KotlinLibraryPlugin"
+            displayName = "Kotlin Library Plugin"
+        }
         register("AndroidApplicationPlugin") {
             id = "android-application-plugin"
             implementationClass = "plugin.AndroidApplicationPlugin"
             displayName = "Android Application Plugin"
         }
-
         register("AndroidLibraryPlugin") {
             id = "android-library-plugin"
             implementationClass = "plugin.AndroidLibraryPlugin"
             displayName = "Android Library Plugin"
         }
-
         register("ComposePlugin") {
             id = "compose-plugin"
             implementationClass = "plugin.ComposePlugin"

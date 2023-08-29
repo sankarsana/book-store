@@ -1,9 +1,4 @@
 plugins {
-    id("android-library-plugin")
+    id("kotlin-library-plugin")
 }
 
-android.namespace = "common.navigation"
-
-dependencies {
-    implementation(libs.navigation.compose)
-}

@@ -6,6 +6,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.kotlin.dsl.provideDelegate
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
@@ -19,6 +20,8 @@ internal class AndroidApplicationPlugin : Plugin<Project> {
             apply("org.jetbrains.kotlin.android")
         }
 
+        val javaVersion: String by project
+
         androidApp {
             compileSdk = libs.versions.compileSdk.get().toInt()
             defaultConfig {
@@ -28,12 +31,10 @@ internal class AndroidApplicationPlugin : Plugin<Project> {
             }
             buildFeatures.buildConfig = true
             compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
+                sourceCompatibility = JavaVersion.toVersion(javaVersion)
+                targetCompatibility = JavaVersion.toVersion(javaVersion)
             }
-            kotlinOptions {
-                jvmTarget = JavaVersion.VERSION_1_8.toString()
-            }
+            kotlinOptions { jvmTarget = javaVersion }
         }
     }
 
