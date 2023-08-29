@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
+import common.navigation.graph.NavigationSetup
 import common.ui.theme.BookStoreTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,12 +17,8 @@ class MainActivity : ComponentActivity() {
             BookStoreTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
                 ) {
-                    Text(
-                        text = "feature.main.screen.MainActivity!",
-                        modifier = Modifier
-                    )
+                    NavigationSetup()
                 }
             }
         }

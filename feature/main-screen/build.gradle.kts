@@ -7,6 +7,7 @@ android.namespace = "feature.main.screen"
 
 dependencies {
     implementation(project(":common:ui-theme"))
+    implementation(project(":common:navigation-graph"))
 
     implementation(libs.activity.compose)
 }
