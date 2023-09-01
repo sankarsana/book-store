@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BookStore"
+rootProject.name = "book-store"
 include(":app")
 include(":common:navigation")
 include(":common:navigation-graph")
