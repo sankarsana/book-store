@@ -22,7 +22,9 @@ internal class ComposePlugin : Plugin<Project> {
             "implementation"(platform(libs.compose.bom))
 
             "implementation"(libs.material3)
-            "compileOnly"(libs.ui.tooling.preview)
+            "implementation"(libs.ui.tooling.preview)
+
+            "debugImplementation"(libs.ui.tooling)
         }
     }
 }
