@@ -19,7 +19,6 @@ fun BookItem(item: BookUiItem = createBookUiItem()) {
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        ShortName(text = item.shortName)
         Name(
             modifier = Modifier.weight(1f),
             text = item.name,
@@ -36,9 +35,8 @@ private fun ShortName(text: String) = Text(
 
 @Composable
 private fun Name(modifier: Modifier, text: String) {
-    val textModifier = modifier.padding(start = 16.dp)
     Text(
-        modifier = textModifier,
+        modifier = modifier,
         text = text,
     )
 }
