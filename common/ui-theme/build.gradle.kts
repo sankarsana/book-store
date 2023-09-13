@@ -6,5 +6,5 @@ plugins {
 android.namespace = "common.ui.theme"
 
 dependencies {
-    implementation(libs.core.ktx)
+    api(libs.core.ktx)
 }
