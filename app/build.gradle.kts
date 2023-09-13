@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common:ui-theme"))
+    implementation(project(":common:ui"))
     implementation(project(":feature:main-screen"))
 
     implementation(libs.core.ktx)

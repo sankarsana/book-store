@@ -6,7 +6,6 @@ plugins {
 android.namespace = "common.ui"
 
 dependencies {
-    api(project("::common:ui-theme"))
-
+    api(libs.core.ktx)
     api(libs.lifecycle.viewmodel.compose)
 }
