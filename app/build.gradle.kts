@@ -27,6 +27,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":common:data"))
     implementation(project(":common:ui"))
     implementation(project(":feature:main-screen"))
 

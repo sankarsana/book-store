@@ -17,6 +17,7 @@ dependencyResolutionManagement {
 rootProject.name = "book-store"
 include(":app")
 include(":common:core")
+include(":common:data")
 include(":common:navigation")
 include(":common:navigation-graph")
 include(":common:ui")

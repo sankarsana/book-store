@@ -1,4 +1,4 @@
-package common.core.book
+package common.data.book
 
 class Book(
     val shortName: String,

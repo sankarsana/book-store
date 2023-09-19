@@ -4,27 +4,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-@Preview
 @Composable
 fun StoreScreen() {
-    val viewModel: StoreViewModel = viewModel()
+    val viewModel: StoreViewModel = viewModel(factory = provideStoreViewModelFactory())
     val state = viewModel.state.collectAsState()
     when (val stateValue = state.value) {
-        is StoreUiState.Loading -> renderLoading()
-        is StoreUiState.Books -> renderBooks(stateValue.books)
+        is StoreUiState.Loading -> showLoading()
+        is StoreUiState.Books -> showBooks(stateValue.books)
     }
 
 }
 
-fun renderLoading() {
+private fun showLoading() {
 
 }
 
 @Composable
-fun renderBooks(books: List<BookUiItem>) {
+private fun showBooks(books: List<BookUiItem>) {
     LazyColumn {
         items(items = books) {
             BookItem(it)
