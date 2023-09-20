@@ -5,6 +5,6 @@ internal sealed class StoreUiState {
     object Loading : StoreUiState()
 
     class Books(
-        val books: List<BookUiItem>,
+        val books: List<BookItemState>,
     ) : StoreUiState()
 }

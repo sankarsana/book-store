@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun BookItem(item: BookUiItem = createBookUiItem()) {
+internal fun BookItem(item: BookItemState = createBookUiItem()) {
     Row(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -48,7 +48,7 @@ private fun Price(text: String) = Text(text = text)
 @Composable
 private fun BookItemPreview() = BookItem(item = createBookUiItem())
 
-private fun createBookUiItem() = BookUiItem(
+private fun createBookUiItem() = BookItemState(
     shortName = "БГ",
     name = "Бхагавад Гита",
     price = "350",

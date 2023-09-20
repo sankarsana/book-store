@@ -22,7 +22,7 @@ private fun showLoading() {
 }
 
 @Composable
-private fun showBooks(books: List<BookUiItem>) {
+private fun showBooks(books: List<BookItemState>) {
     LazyColumn {
         items(items = books) {
             BookItem(it)
