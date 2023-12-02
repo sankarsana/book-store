@@ -1,4 +1,4 @@
-package common.data.net
+package common.data.remote
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -10,8 +10,8 @@ internal class BookStoreResponse(
     val databaseVersion: Int,
 
     @SerialName("books")
-    val books: List<BookDto>,
+    val books: List<BookRemote>,
 
     @SerialName("writers")
-    val writers: List<WriterDto>,
+    val writers: List<WriterRemote>,
 )

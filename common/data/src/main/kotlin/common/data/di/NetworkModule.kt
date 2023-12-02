@@ -2,29 +2,31 @@ package common.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import common.data.StoreVersionProvider
-import common.data.net.BookStoreApi
+import common.data.remote.BookStoreApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 
-internal class NetworkModule(private val storeVersionProvider: StoreVersionProvider) {
+internal object NetworkModule {
 
-    internal fun provideBookStoreApi() = getRetrofit().create(BookStoreApi::class.java)
+    fun provideBookStoreApi(storeVersionProvider: StoreVersionProvider): BookStoreApi {
+        return getRetrofit(storeVersionProvider).create(BookStoreApi::class.java)
+    }
 
     private val json = Json {
         ignoreUnknownKeys = true
         isLenient = true
     }
 
-    private fun getRetrofit() = Retrofit.Builder()
+    private fun getRetrofit(storeVersionProvider: StoreVersionProvider) = Retrofit.Builder()
         .baseUrl(BookStoreApi.BASE_URL)
-        .client(getHttpClient())
+        .client(getHttpClient(storeVersionProvider))
         .addConverterFactory(provideConvertorFactory())
         .build()
 
-    private fun getHttpClient() = OkHttpClient.Builder()
+    private fun getHttpClient(storeVersionProvider: StoreVersionProvider) = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
                 .header("database_version", storeVersionProvider.get().toString()).build()

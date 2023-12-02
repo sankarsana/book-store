@@ -1,4 +1,4 @@
-package common.data.net
+package common.data.remote
 
 import retrofit2.http.GET
 

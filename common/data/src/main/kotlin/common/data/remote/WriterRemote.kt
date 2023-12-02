@@ -1,10 +1,10 @@
-package common.data.net
+package common.data.remote
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal class WriterDto(
+internal class WriterRemote(
 
     @SerialName("id")
     val id: Int,

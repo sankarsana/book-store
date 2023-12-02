@@ -1,14 +1,16 @@
 package common.data
 
-import common.data.net.BookStoreNetworkDataSource
+import common.data.local.LocalDataSource
+import common.data.remote.BookStoreNetworkDataSource
 
 internal class BooksRepositoryImpl(
-    private val netDataSource: BookStoreNetworkDataSource,
+    private val remoteDataSource: BookStoreNetworkDataSource,
+    private val localDataSource: LocalDataSource,
 ) : BooksRepository {
 
-    override suspend fun getAll(): List<Book> {
-        val response = netDataSource.getAll()
-        return response.books.map {
+    override suspend fun getAllBooks(): List<Book> {
+        val remote = remoteDataSource.getAll()
+        return remote.books.map {
             Book(
                 name = it.name,
                 shortName = it.shortName,

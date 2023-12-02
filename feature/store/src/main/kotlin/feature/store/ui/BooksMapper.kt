@@ -2,12 +2,9 @@ package feature.store.ui
 
 import common.data.Book
 
-internal fun List<Book>.toUi(): List<BookItemState> {
-    return map(::map)
-}
+internal object BooksMapper {
 
-private fun map(book: Book): BookItemState {
-    return BookItemState(
+    fun toUi(book: Book) = BookItemState(
         shortName = book.shortName,
         name = book.name,
         price = book.price,

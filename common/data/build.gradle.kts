@@ -1,6 +1,7 @@
 plugins {
     id("android-library-plugin")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.google.devtools.ksp")
 }
 
 android.namespace = "common.data"
@@ -11,4 +12,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.serialization.json)
     implementation(libs.serialization.converter)
+
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
 }

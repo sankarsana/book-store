@@ -19,7 +19,7 @@ internal class StoreViewModel(
     init {
         viewModelScope.launch {
             delay(1000)
-            val books = repository.getAll().toUi()
+            val books = repository.getAllBooks().map(BooksMapper::toUi)
             _state.value = StoreUiState.Books(books)
         }
     }

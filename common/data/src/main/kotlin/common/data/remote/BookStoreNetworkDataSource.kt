@@ -1,4 +1,4 @@
-package common.data.net
+package common.data.remote
 
 internal class BookStoreNetworkDataSource(
     private val api: BookStoreApi,

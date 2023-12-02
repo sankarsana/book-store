@@ -1,10 +1,10 @@
-package common.data.net
+package common.data.remote
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-class BookDto(
+class BookRemote(
 
     @SerialName("id")
     val id: Int,
