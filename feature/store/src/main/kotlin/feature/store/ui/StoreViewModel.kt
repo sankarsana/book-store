@@ -2,7 +2,7 @@ package feature.store.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import common.data.book.BookRepository
+import common.data.BooksRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 internal class StoreViewModel(
-    private val repository: BookRepository,
+    private val repository: BooksRepository,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<StoreUiState>(StoreUiState.Loading)

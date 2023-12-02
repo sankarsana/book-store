@@ -1,7 +1,7 @@
-package common.data.book
+package common.data
 
 class Book(
-    val shortName: String,
     val name: String,
+    val shortName: String?,
     val price: String,
 )

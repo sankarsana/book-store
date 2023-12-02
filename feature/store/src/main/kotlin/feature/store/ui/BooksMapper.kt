@@ -1,6 +1,6 @@
 package feature.store.ui
 
-import common.data.book.Book
+import common.data.Book
 
 internal fun List<Book>.toUi(): List<BookItemState> {
     return map(::map)

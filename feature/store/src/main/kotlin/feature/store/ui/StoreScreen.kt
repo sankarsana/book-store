@@ -12,7 +12,7 @@ fun StoreScreen() {
     val state = viewModel.state.collectAsState()
     when (val stateValue = state.value) {
         is StoreUiState.Loading -> showLoading()
-        is StoreUiState.Books -> showBooks(stateValue.books)
+        is StoreUiState.Books -> ShowBooks(stateValue.books)
     }
 
 }
@@ -22,7 +22,7 @@ private fun showLoading() {
 }
 
 @Composable
-private fun showBooks(books: List<BookItemState>) {
+private fun ShowBooks(books: List<BookItemState>) {
     LazyColumn {
         items(items = books) {
             BookItem(it)
