@@ -13,6 +13,6 @@ dependencies {
     implementation(libs.serialization.json)
     implementation(libs.serialization.converter)
 
-    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 }

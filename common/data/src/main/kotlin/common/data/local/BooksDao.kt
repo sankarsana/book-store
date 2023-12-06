@@ -7,8 +7,8 @@ import androidx.room.Query
 internal interface BooksDao {
 
     @Query("select * from books")
-    fun getAllBooks(): List<BookLocal>
+    suspend fun getAllBooks(): List<BookLocal>
 
     @Query("select * from writers")
-    fun getAllWriters(): List<WriterLocal>
+    suspend fun getAllWriters(): List<WriterLocal>
 }
