@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import kotlinx.coroutines.flow.first
 
-internal class StoreVersionProvider(
+internal class BooksVersionProvider(
     private val dataStore: DataStore<Preferences>,
 ) {
 

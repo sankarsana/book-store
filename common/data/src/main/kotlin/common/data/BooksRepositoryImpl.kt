@@ -1,13 +1,13 @@
 package common.data
 
+import common.data.local.BooksVersionProvider
 import common.data.local.LocalDataSource
-import common.data.local.StoreVersionProvider
-import common.data.remote.BookStoreNetworkDataSource
+import common.data.remote.RemoteDataSource
 
 internal class BooksRepositoryImpl(
-    private val remoteDataSource: BookStoreNetworkDataSource,
+    private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    private val storeVersionProvider: StoreVersionProvider,
+    private val booksVersionProvider: BooksVersionProvider,
 ) : BooksRepository {
 
     override suspend fun getAllBooks(updateFromRemote: Boolean): List<Book> {
@@ -16,11 +16,15 @@ internal class BooksRepositoryImpl(
     }
 
     private suspend fun updateFromRemote() {
-        val remote = remoteDataSource.getAll()
-        if (remote.databaseVersion > storeVersionProvider.getBooksVersion()) {
+        val remote = try {
+            remoteDataSource.getAllBooks()
+        } catch (e: Exception) {
+            return
+        }
+        if (remote.databaseVersion > booksVersionProvider.getBooksVersion()) {
             localDataSource.addBooks(remote.books.toBooksLocal())
             localDataSource.addWriters(remote.writers.toWritersLocal())
-            storeVersionProvider.setBookVersion(remote.databaseVersion)
+            booksVersionProvider.setBookVersion(remote.databaseVersion)
         }
     }
 }
