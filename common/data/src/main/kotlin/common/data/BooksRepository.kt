@@ -2,5 +2,5 @@ package common.data
 
 interface BooksRepository {
 
-    suspend fun getAllBooks(): List<Book>
+    suspend fun getAllBooks(updateFromRemote: Boolean = false): List<Book>
 }

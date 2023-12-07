@@ -3,7 +3,6 @@ package feature.store.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import common.data.BooksRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,8 +17,7 @@ internal class StoreViewModel(
 
     init {
         viewModelScope.launch {
-            delay(1000)
-            val books = repository.getAllBooks().map(BooksMapper::toUi)
+            val books = repository.getAllBooks(updateFromRemote = true).map(BooksMapper::toUi)
             _state.value = StoreUiState.Books(books)
         }
     }

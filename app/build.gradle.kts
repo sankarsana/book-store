@@ -31,10 +31,11 @@ dependencies {
     implementation(project(":common:ui"))
     implementation(project(":feature:main-screen"))
 
+    implementation(libs.activity.compose)
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
-    implementation(libs.activity.compose)
     implementation(libs.material3)
+    implementation(libs.timber)
 
     testImplementation(libs.junit)
 

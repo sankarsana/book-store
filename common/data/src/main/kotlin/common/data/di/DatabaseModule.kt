@@ -2,7 +2,10 @@ package common.data.di
 
 import android.content.Context
 import androidx.room.Room
-import common.data.remote.BooksDatabase
+import androidx.room.RoomDatabase
+import common.data.local.BooksDatabase
+import timber.log.Timber
+import java.util.concurrent.Executors
 
 internal object DatabaseModule {
 
@@ -11,7 +14,14 @@ internal object DatabaseModule {
             context = context,
             klass = BooksDatabase::class.java,
             name = DATABASE_NAME,
-        ).build()
+        )
+            .setQueryCallback(loggingCallback(), Executors.newSingleThreadExecutor())
+            .build()
+    }
+
+    private fun loggingCallback() = RoomDatabase.QueryCallback { query, args ->
+        val args = if (args.isNotEmpty()) ", args: $args" else ""
+        Timber.i("$query$args")
     }
 
     private const val DATABASE_NAME = "books-database"

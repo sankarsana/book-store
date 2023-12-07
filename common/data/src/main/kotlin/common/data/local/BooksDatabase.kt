@@ -1,10 +1,7 @@
-package common.data.remote
+package common.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import common.data.local.BookLocal
-import common.data.local.BooksDao
-import common.data.local.WriterLocal
 
 @Database(
     entities = [
