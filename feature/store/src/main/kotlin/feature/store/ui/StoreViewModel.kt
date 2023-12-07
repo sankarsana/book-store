@@ -18,7 +18,27 @@ internal class StoreViewModel(
     init {
         viewModelScope.launch {
             val books = repository.getAllBooks(updateFromRemote = true).map(BooksMapper::toUi)
-            _state.value = StoreUiState.Books(books)
+            _state.value = StoreUiState.Content(AppBarState.Main, books)
         }
+    }
+
+    fun onSearchIconClick() {
+        updateContent {
+            copy(
+                appBarState = AppBarState.Search
+            )
+        }
+    }
+
+    fun onClearClick() {
+        updateContent {
+            copy(
+                appBarState = AppBarState.Main
+            )
+        }
+    }
+
+    private fun updateContent(block: StoreUiState.Content.() -> StoreUiState.Content) {
+        _state.value = block(_state.value as StoreUiState.Content)
     }
 }
