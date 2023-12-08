@@ -15,17 +15,22 @@ internal class StoreViewModel(
     private val _state = MutableStateFlow<StoreUiState>(StoreUiState.Loading)
     val state: StateFlow<StoreUiState> = _state.asStateFlow()
 
+    private val content: StoreUiState.Content get() = _state.value as StoreUiState.Content
+
     init {
         viewModelScope.launch {
             val books = repository.getAllBooks(updateFromRemote = true).map(BooksMapper::toUi)
-            _state.value = StoreUiState.Content(AppBarState.Main, books)
+            _state.value = StoreUiState.Content(AppBarState(), books)
         }
     }
 
-    fun onSearchIconClick() {
+    fun onSearchQueryChanged(query: String) {
         updateContent {
             copy(
-                appBarState = AppBarState.Search
+                appBarState = appBarState.copy(
+                    query = query,
+                    showClearButton = query.isNotEmpty()
+                )
             )
         }
     }
@@ -33,12 +38,15 @@ internal class StoreViewModel(
     fun onClearClick() {
         updateContent {
             copy(
-                appBarState = AppBarState.Main
+                appBarState = content.appBarState.copy(
+                    query = "",
+                    showClearButton = false,
+                )
             )
         }
     }
 
     private fun updateContent(block: StoreUiState.Content.() -> StoreUiState.Content) {
-        _state.value = block(_state.value as StoreUiState.Content)
+        _state.value = block(content)
     }
 }

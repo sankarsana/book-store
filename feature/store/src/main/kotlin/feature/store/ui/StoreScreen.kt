@@ -10,7 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import feature.store.ui.views.AppBar
+import feature.store.ui.views.AppBarSearch
 
 @Composable
 fun StoreScreen() {
@@ -30,11 +30,13 @@ private fun showLoading() {
 private fun ShowContent(state: StoreUiState.Content, viewModel: StoreViewModel) {
     Scaffold(
         modifier = Modifier,
-        topBar = AppBar(
-            state = state.appBarState,
-            onSearchIconClick = viewModel::onSearchIconClick,
-            onClearClick = viewModel::onClearClick,
-        ),
+        topBar = {
+            AppBarSearch(
+                state = state.appBarState,
+                onClearClick = viewModel::onClearClick,
+                onQueryChange = viewModel::onSearchQueryChanged,
+            )
+        },
     ) { values ->
         LazyColumn(
             modifier = Modifier
