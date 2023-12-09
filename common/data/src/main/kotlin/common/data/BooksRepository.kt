@@ -1,6 +1,8 @@
 package common.data
 
+import kotlinx.coroutines.flow.Flow
+
 interface BooksRepository {
 
-    suspend fun getAllBooks(updateFromRemote: Boolean = false): List<Book>
+    fun getAllBooks(): Flow<List<Book>>
 }

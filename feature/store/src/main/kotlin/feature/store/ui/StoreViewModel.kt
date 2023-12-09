@@ -2,51 +2,48 @@ package feature.store.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import common.data.Book
 import common.data.BooksRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 
 internal class StoreViewModel(
-    private val repository: BooksRepository,
+    repository: BooksRepository,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<StoreUiState>(StoreUiState.Loading)
-    val state: StateFlow<StoreUiState> = _state.asStateFlow()
+    private val searchQuery = MutableStateFlow("")
 
-    private val content: StoreUiState.Content get() = _state.value as StoreUiState.Content
+    val state: StateFlow<StoreUiState> = repository.getAllBooks()
+        .combine(searchQuery, ::createState)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), StoreUiState.Loading)
 
-    init {
-        viewModelScope.launch {
-            val books = repository.getAllBooks(updateFromRemote = true).map(BooksMapper::toUi)
-            _state.value = StoreUiState.Content(AppBarState(), books)
+    private fun createState(books: List<Book>, query: String): StoreUiState.Content {
+        val appBarState = AppBarState(
+            query = query,
+            showClearButton = query.isNotEmpty()
+        )
+        return StoreUiState.Content(
+            appBarState = appBarState,
+            books = books.filterBy(query).map(BooksMapper::toUi),
+        )
+    }
+
+    private fun List<Book>.filterBy(query: String): List<Book> {
+        return if (query.isNotEmpty()) {
+            filter { it.name.startsWith(query, ignoreCase = true) }
+        } else {
+            this
         }
     }
 
     fun onSearchQueryChanged(query: String) {
-        updateContent {
-            copy(
-                appBarState = appBarState.copy(
-                    query = query,
-                    showClearButton = query.isNotEmpty()
-                )
-            )
-        }
+        searchQuery.value = query
     }
 
     fun onClearClick() {
-        updateContent {
-            copy(
-                appBarState = content.appBarState.copy(
-                    query = "",
-                    showClearButton = false,
-                )
-            )
-        }
-    }
-
-    private fun updateContent(block: StoreUiState.Content.() -> StoreUiState.Content) {
-        _state.value = block(content)
+        searchQuery.value = ""
     }
 }
