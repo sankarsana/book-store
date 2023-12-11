@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import common.data.Book
 import common.data.BooksRepository
+import feature.store.domain.FilterBooksUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 
 internal class StoreViewModel(
     repository: BooksRepository,
+    private val filterBooksUseCase: FilterBooksUseCase,
 ) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
@@ -27,16 +29,8 @@ internal class StoreViewModel(
         )
         return StoreUiState.Content(
             appBarState = appBarState,
-            books = books.filterBy(query).map(BooksMapper::toUi),
+            books = filterBooksUseCase(books, query).map(BooksMapper::toUi),
         )
-    }
-
-    private fun List<Book>.filterBy(query: String): List<Book> {
-        return if (query.isNotEmpty()) {
-            filter { it.name.startsWith(query, ignoreCase = true) }
-        } else {
-            this
-        }
     }
 
     fun onSearchQueryChanged(query: String) {

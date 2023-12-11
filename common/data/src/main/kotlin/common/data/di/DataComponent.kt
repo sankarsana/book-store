@@ -4,6 +4,7 @@ import android.content.Context
 import common.data.BooksRepository
 
 interface DataComponent {
+
     fun bookRepository(): BooksRepository
 }
 

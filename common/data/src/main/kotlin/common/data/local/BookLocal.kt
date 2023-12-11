@@ -8,8 +8,8 @@ import androidx.room.PrimaryKey
 internal data class BookLocal(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "shortName") val shortName: String? = null,
-    @ColumnInfo(name = "writerId") val writerId: Int,
+    @ColumnInfo(name = "short_name") val shortName: String? = null,
+    @ColumnInfo(name = "writer_id") val writerId: Int,
     @ColumnInfo(name = "price") val price: Int,
     @ColumnInfo(name = "quantity") val quantity: Int,
 )

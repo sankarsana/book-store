@@ -28,7 +28,7 @@ internal fun Content(state: StoreUiState.Content, viewModel: StoreViewModel) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(values)
-                .padding(top = 8.dp)
+                .padding(top = 16.dp)
         ) {
             items(items = state.books) {
                 BookItem(it)
