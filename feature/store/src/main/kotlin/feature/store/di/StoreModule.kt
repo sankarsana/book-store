@@ -11,10 +11,12 @@ internal interface StoreModule {
         dependencies: StoreDependencies = StoreDependencies.Impl,
     ) : StoreModule, StoreDependencies by dependencies {
 
-        override fun provideStoreViewModel() = StoreViewModel(
-            repository = bookRepository,
-            filterBooksUseCase = provideFilterBooksUseCase(),
-        )
+        override fun provideStoreViewModel(): StoreViewModel {
+            return StoreViewModel(
+                repository = bookRepository,
+                filterBooksUseCase = provideFilterBooksUseCase(),
+            )
+        }
 
         private fun provideFilterBooksUseCase() = FilterBooksUseCase()
     }

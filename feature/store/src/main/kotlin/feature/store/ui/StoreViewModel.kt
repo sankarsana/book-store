@@ -23,12 +23,12 @@ internal class StoreViewModel(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), StoreUiState.Loading)
 
     private fun createState(books: List<Book>, query: String): StoreUiState.Content {
-        val appBarState = AppBarState(
+        val searchBarState = SearchBarState(
             query = query,
             showClearButton = query.isNotEmpty()
         )
         return StoreUiState.Content(
-            appBarState = appBarState,
+            searchBarState = searchBarState,
             books = filterBooksUseCase(books, query).map(BooksMapper::toUi),
         )
     }
