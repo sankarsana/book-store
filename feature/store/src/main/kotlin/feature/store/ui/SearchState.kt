@@ -1,6 +1,6 @@
 package feature.store.ui
 
-internal data class SearchBarState(
+internal data class SearchState(
     val query: String = "",
     val showClearButton: Boolean = false,
 )

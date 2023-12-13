@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun BookItem(item: BookItemState) {
+internal fun Book(book: BookState) {
     Row(
         modifier = Modifier
             .height(56.dp)
@@ -23,9 +23,9 @@ internal fun BookItem(item: BookItemState) {
     ) {
         Name(
             modifier = Modifier.weight(1f),
-            text = item.name,
+            text = book.name,
         )
-        Price(text = item.price)
+        Price(text = book.price)
     }
 }
 
@@ -48,10 +48,4 @@ private fun Price(text: String) = Text(text = text)
 
 @Preview(showBackground = true)
 @Composable
-private fun BookItemPreview() = BookItem(item = createBookUiItem())
-
-private fun createBookUiItem() = BookItemState(
-    shortName = "БГ",
-    name = "Бхагавад Гита",
-    price = "350",
-)
+private fun BookPreview() = Book(BookStatePreviewData())

@@ -21,13 +21,13 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import feature.store.R
-import feature.store.ui.SearchBarState
+import feature.store.ui.SearchState
 import feature.store.ui.StoreAction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SearchBar(
-    state: SearchBarState,
+internal fun Search(
+    state: SearchState,
     onAction: (StoreAction.Search) -> Unit,
 ) {
     TextField(
@@ -72,7 +72,7 @@ private fun ClearButton(showClearButton: Boolean, onAction: (StoreAction.Search)
 
 @Preview
 @Composable
-private fun SearchBarPreview() = SearchBar(
-    state = SearchBarState(),
+private fun SearchBarPreview() = Search(
+    state = SearchState(),
     onAction = {}
 )
