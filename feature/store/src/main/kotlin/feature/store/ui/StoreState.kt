@@ -1,11 +1,11 @@
 package feature.store.ui
 
-internal sealed class StoreUiState {
+internal sealed class StoreState {
 
-    data object Loading : StoreUiState()
+    data object Loading : StoreState()
 
     data class Content(
         val searchBarState: SearchBarState,
         val books: List<BookItemState>,
-    ) : StoreUiState()
+    ) : StoreState()
 }

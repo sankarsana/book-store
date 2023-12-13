@@ -9,18 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import feature.store.ui.BookItem
-import feature.store.ui.StoreUiState
-import feature.store.ui.StoreViewModel
+import feature.store.ui.StoreAction
+import feature.store.ui.StoreState
 
 @Composable
-internal fun Content(state: StoreUiState.Content, viewModel: StoreViewModel) {
+internal fun Store(state: StoreState.Content, onAction: (StoreAction) -> Unit) {
     Column(
         modifier = Modifier.padding(top = 8.dp)
     ) {
         SearchBar(
             state = state.searchBarState,
-            onClearClick = viewModel::onClearClick,
-            onQueryChange = viewModel::onSearchQueryChanged,
+            onAction = onAction,
         )
         LazyColumn(
             modifier = Modifier

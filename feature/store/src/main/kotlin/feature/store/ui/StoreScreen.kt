@@ -3,8 +3,8 @@ package feature.store.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import feature.store.di.StoreComponent
-import feature.store.ui.views.Content
 import feature.store.ui.views.Loading
+import feature.store.ui.views.Store
 
 @Composable
 fun StoreScreen() {
@@ -13,7 +13,7 @@ fun StoreScreen() {
     }
     val state = viewModel.state.collectAsState()
     when (val stateValue = state.value) {
-        is StoreUiState.Loading -> Loading()
-        is StoreUiState.Content -> Content(stateValue, viewModel)
+        is StoreState.Loading -> Loading()
+        is StoreState.Content -> Store(stateValue, viewModel::onAction)
     }
 }

@@ -18,26 +18,25 @@ internal class StoreViewModel(
 
     private val searchQuery = MutableStateFlow("")
 
-    val state: StateFlow<StoreUiState> = repository.getAllBooks()
+    val state: StateFlow<StoreState> = repository.getAllBooks()
         .combine(searchQuery, ::createState)
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), StoreUiState.Loading)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), StoreState.Loading)
 
-    private fun createState(books: List<Book>, query: String): StoreUiState.Content {
+    private fun createState(books: List<Book>, query: String): StoreState.Content {
         val searchBarState = SearchBarState(
             query = query,
             showClearButton = query.isNotEmpty()
         )
-        return StoreUiState.Content(
+        return StoreState.Content(
             searchBarState = searchBarState,
             books = filterBooksUseCase(books, query).map(BooksMapper::toUi),
         )
     }
 
-    fun onSearchQueryChanged(query: String) {
-        searchQuery.value = query
-    }
-
-    fun onClearClick() {
-        searchQuery.value = ""
+    fun onAction(action: StoreAction) {
+        when (action) {
+            is StoreAction.Search.ClearClicked -> searchQuery.value = ""
+            is StoreAction.Search.QueryChanged -> searchQuery.value = action.query
+        }
     }
 }
