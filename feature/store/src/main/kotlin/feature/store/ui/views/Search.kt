@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -31,6 +32,9 @@ internal fun Search(
     onClearClicked: () -> Unit,
 ) {
     TextField(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         value = state.query,
         onValueChange = onQueryChanged,
         singleLine = true,
@@ -38,14 +42,13 @@ internal fun Search(
         leadingIcon = { LeadingIcon() },
         trailingIcon = { ClearButton(state.showClearButton, onClearClicked) },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        shape = RoundedCornerShape(32.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+        shape = RoundedCornerShape(16.dp),
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            focusedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
         )
     )
 }
@@ -55,7 +58,8 @@ private fun LeadingIcon() {
     Icon(
         imageVector = Icons.Default.Search,
         contentDescription = null,
-        modifier = Modifier.padding(start = 16.dp)
+        modifier = Modifier.padding(start = 16.dp),
+        tint = MaterialTheme.colorScheme.onPrimaryContainer,
     )
 }
 
@@ -66,7 +70,11 @@ private fun ClearButton(showClearButton: Boolean, onClicked: () -> Unit) {
         onClick = onClicked,
         modifier = Modifier.padding(end = 8.dp)
     ) {
-        Icon(imageVector = Icons.Default.Clear, contentDescription = null)
+        Icon(
+            imageVector = Icons.Default.Clear,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onPrimaryContainer
+        )
     }
 }
 
