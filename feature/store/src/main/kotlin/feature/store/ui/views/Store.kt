@@ -8,17 +8,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import feature.store.ui.BookStatePreviewData
 import feature.store.ui.SearchState
-import feature.store.ui.StoreAction
+import feature.store.ui.StoreEvent
 import feature.store.ui.StoreState
 
 @Composable
-internal fun Store(state: StoreState.Content, onAction: (StoreAction) -> Unit) {
+internal fun Store(state: StoreState.Content, onAction: (StoreEvent) -> Unit) {
     Column(
         modifier = Modifier.padding(top = 8.dp)
     ) {
         Search(
             state = state.searchState,
-            onAction = onAction,
+            onQueryChanged = { onAction(StoreEvent.Search.QueryChanged(it)) },
+            onClearClicked = { onAction(StoreEvent.Search.ClearClicked) }
         )
         BookList(
             books = state.books,

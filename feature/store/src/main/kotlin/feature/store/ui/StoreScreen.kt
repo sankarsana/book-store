@@ -14,6 +14,6 @@ fun StoreScreen() {
     val state = viewModel.state.collectAsState()
     when (val stateValue = state.value) {
         is StoreState.Loading -> Loading()
-        is StoreState.Content -> Store(stateValue, viewModel::onAction)
+        is StoreState.Content -> Store(stateValue, viewModel::obtainEvent)
     }
 }

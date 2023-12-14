@@ -22,21 +22,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import feature.store.R
 import feature.store.ui.SearchState
-import feature.store.ui.StoreAction
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun Search(
     state: SearchState,
-    onAction: (StoreAction.Search) -> Unit,
+    onQueryChanged: (String) -> Unit,
+    onClearClicked: () -> Unit,
 ) {
     TextField(
         value = state.query,
-        onValueChange = { onAction(StoreAction.Search.QueryChanged(it)) },
+        onValueChange = onQueryChanged,
         singleLine = true,
         placeholder = { Text(text = stringResource(id = R.string.search_place_holder)) },
         leadingIcon = { LeadingIcon() },
-        trailingIcon = { ClearButton(state.showClearButton, onAction) },
+        trailingIcon = { ClearButton(state.showClearButton, onClearClicked) },
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         shape = RoundedCornerShape(32.dp),
         modifier = Modifier
@@ -60,10 +60,10 @@ private fun LeadingIcon() {
 }
 
 @Composable
-private fun ClearButton(showClearButton: Boolean, onAction: (StoreAction.Search) -> Unit) {
+private fun ClearButton(showClearButton: Boolean, onClicked: () -> Unit) {
     if (!showClearButton) return
     IconButton(
-        onClick = { onAction(StoreAction.Search.ClearClicked) },
+        onClick = onClicked,
         modifier = Modifier.padding(end = 8.dp)
     ) {
         Icon(imageVector = Icons.Default.Clear, contentDescription = null)
@@ -74,5 +74,6 @@ private fun ClearButton(showClearButton: Boolean, onAction: (StoreAction.Search)
 @Composable
 private fun SearchBarPreview() = Search(
     state = SearchState(),
-    onAction = {}
+    onQueryChanged = {},
+    onClearClicked = {},
 )

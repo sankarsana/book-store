@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 internal class StoreViewModel(
     repository: BooksRepository,
     private val filterBooksUseCase: FilterBooksUseCase,
-) : ViewModel() {
+) : ViewModel(), EventHandler<StoreEvent> {
 
     private val searchQuery = MutableStateFlow("")
 
@@ -33,10 +33,10 @@ internal class StoreViewModel(
         )
     }
 
-    fun onAction(action: StoreAction) {
-        when (action) {
-            is StoreAction.Search.ClearClicked -> searchQuery.value = ""
-            is StoreAction.Search.QueryChanged -> searchQuery.value = action.query
+    override fun obtainEvent(event: StoreEvent) {
+        when (event) {
+            is StoreEvent.Search.ClearClicked -> searchQuery.value = ""
+            is StoreEvent.Search.QueryChanged -> searchQuery.value = event.query
         }
     }
 }
