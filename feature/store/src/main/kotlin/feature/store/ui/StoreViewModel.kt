@@ -22,7 +22,8 @@ internal class StoreViewModel(
         .combine(searchQuery, ::createState)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), StoreState.Loading)
 
-    private fun createState(books: List<Book>, query: String): StoreState.Content {
+    private fun createState(books: List<Book>, query: String): StoreState {
+        if (books.isEmpty()) return StoreState.Empty
         val searchState = SearchState(
             query = query,
             showClearButton = query.isNotEmpty()

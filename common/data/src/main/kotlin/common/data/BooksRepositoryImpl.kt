@@ -1,5 +1,6 @@
 package common.data
 
+import common.data.exception.RemoteServerException
 import common.data.local.BooksVersionProvider
 import common.data.local.LocalDataSource
 import common.data.remote.RemoteDataSource
@@ -13,12 +14,12 @@ internal class BooksRepositoryImpl(
 ) : BooksRepository {
 
     override fun getAllBooks(): Flow<List<Book>> = flow {
-        // TODO handle server exception
-        // TODO data is empty
         val local = localDataSource.getAllBooks()
         if (local.isNotEmpty()) emit(local.toBooks())
         if (updateFromRemote()) {
             emit(localDataSource.getAllBooks().toBooks())
+        } else if (local.isEmpty()) {
+            emit(emptyList())
         }
     }
 
@@ -26,7 +27,7 @@ internal class BooksRepositoryImpl(
         val remote = try {
             remoteDataSource.getAllBooks()
         } catch (e: Exception) {
-            return false
+            throw RemoteServerException(e.message, e.cause)
         }
         val isRemoteVersionGreater = remote.databaseVersion > booksVersionProvider.getBooksVersion()
         if (isRemoteVersionGreater) {

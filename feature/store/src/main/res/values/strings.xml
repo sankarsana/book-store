@@ -2,4 +2,5 @@
 <resources>
     <string name="app_bar_title">Books</string>
     <string name="search_place_holder">Поиск книг</string>
+    <string name="store_is_empty">Тут пока пусто</string>
 </resources>
